@@ -14,6 +14,10 @@ function getSavedMessage() {
     return localStorage.getItem('mensagemCriptografada');
 }
 
+function getSavedMessageOriginal() {
+    return localStorage.getItem('chaveCriptografia');
+}
+
 $('#message').on('input', function () {
     if ($(this).val().trim() !== '') {
         $('#password-label').show();
@@ -38,26 +42,27 @@ btnCriptografar.on('click', (e) => {
     }
 
     let mensagemSalva = getSavedMessage();
+    let messageOriginal = getSavedMessageOriginal();
     if (mensagem == mensagemSalva) {
         // Verificar se já existe um campo de entrada criptografado
         let inputCriptografado = $('#criptografadoText input');
 
         // Se já existir, apenas atualize o valor
         if (inputCriptografado.length > 0) {
-            inputCriptografado.val(secreta);
+            inputCriptografado.val(messageOriginal);
         } else {
-            // Caso contrário, crie um novo campo de entrada somente leitura
             inputCriptografado = $('<input>');
             inputCriptografado.attr('type', 'text');
             inputCriptografado.attr('readonly', 'readonly');
             inputCriptografado.addClass('input input-bordered w-full max-w-xs');
-            inputCriptografado.val(secreta);
+            inputCriptografado.val(messageOriginal);
 
             // Adicionar o novo campo de entrada ao DOM
             $('#criptografadoText').append(inputCriptografado);
         }
-
-
+    } else {
+        alert('Mensagem criptografada não existente!');
+        return;
     }
 
 });

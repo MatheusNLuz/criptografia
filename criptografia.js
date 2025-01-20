@@ -18,6 +18,7 @@ $(document).ready(function () {
 
         document.cookie = `senha=${senha};expires=${new Date(Date.now() + 3600000).toUTCString()};path=/`;
         localStorage.setItem('mensagemCriptografada', secreta);
+        localStorage.setItem('chaveCriptografia', mensagem);
         ''
         // Se já existir, apenas atualize o valor
         if (inputCriptografado.length > 0) {
